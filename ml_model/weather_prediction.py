@@ -93,8 +93,11 @@ class Weather_Prediction:
             if input_data is None:
                 return None
 
-            # Get initial pressure for more realistic variations
+            # Get initial values for more realistic variations
+            initial_temp = weather_data['main']['temp']
             initial_pressure = weather_data['main']['pressure']
+            initial_humidity = weather_data['main']['humidity']
+            initial_wind = weather_data['wind']['speed']
             
             # Make predictions
             predictions = []
@@ -102,39 +105,45 @@ class Weather_Prediction:
 
             for i in range(24):
                 prediction_time = current_time + timedelta(hours=i)
+                hour = prediction_time.hour
                 
-                # Make predictions for each parameter
+                # Make base predictions
                 pred = {
                     'timestamp': prediction_time.strftime('%Y-%m-%d %H:%M:%S')
                 }
                 
-                for param in self.feature_names:
-                    pred[param] = float(self.models[param].predict(input_data)[0])
+                # Temperature variation based on time of day and initial temperature
+                time_factor = hour / 24.0
+                day_night_cycle = math.sin(2 * math.pi * (time_factor - 0.25))  # Peak at 2 PM (14:00)
                 
-                # Add time-based variations
-                hour = prediction_time.hour
+                # Daily temperature variation (larger in dry conditions, smaller in humid)
+                humidity_factor = initial_humidity / 100.0  # 0 to 1
+                temp_variation = 5 * (1 - humidity_factor)  # Less variation when humid
                 
-                # Temperature variation
-                pred['temperature'] += math.sin(hour * math.pi / 12) * 2
+                # Calculate temperature with realistic variations
+                pred['temperature'] = (
+                    initial_temp +  # Start from current temperature
+                    day_night_cycle * temp_variation +  # Daily cycle
+                    random.uniform(-0.5, 0.5)  # Small random variations
+                )
                 
-                # Humidity variation (inverse to temperature)
-                pred['humidity'] += -math.sin(hour * math.pi / 12) * 5
+                # Humidity often inverse to temperature
+                humidity_variation = -day_night_cycle * 10  # Opposite to temperature
+                pred['humidity'] = initial_humidity + humidity_variation + random.uniform(-2, 2)
                 
-                # Pressure variation (more realistic)
-                time_factor = i / 24.0  # Normalized time factor
-                random_factor = random.uniform(-0.3, 0.3)  # Small random variation
-                trend_factor = math.sin(2 * math.pi * time_factor) * 0.7  # Sinusoidal trend
+                # Pressure variation
+                time_factor = i / 24.0
+                pressure_variation = math.sin(2 * math.pi * time_factor) * 0.7
+                pred['pressure'] = initial_pressure + pressure_variation + random.uniform(-0.3, 0.3)
                 
-                # Calculate pressure based on initial value with variations
-                pred['pressure'] = initial_pressure + trend_factor + random_factor
-                
-                # Wind speed with more variation
-                pred['wind_speed'] += random.uniform(-0.8, 0.8)
+                # Wind speed with more natural variation
+                wind_variation = math.sin(2 * math.pi * time_factor) * 2
+                pred['wind_speed'] = max(0, initial_wind + wind_variation + random.uniform(-1, 1))
                 
                 # Ensure values are within reasonable ranges
-                pred['temperature'] = max(-10, min(40, pred['temperature']))
+                pred['temperature'] = max(-10, min(45, pred['temperature']))
                 pred['humidity'] = max(0, min(100, pred['humidity']))
-                pred['pressure'] = max(980, min(1040, pred['pressure']))  # Standard range for pressure
+                pred['pressure'] = max(980, min(1040, pred['pressure']))
                 pred['wind_speed'] = max(0, min(20, pred['wind_speed']))
                 
                 predictions.append(pred)

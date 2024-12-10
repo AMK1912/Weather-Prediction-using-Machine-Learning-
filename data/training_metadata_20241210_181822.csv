@@ -1,0 +1,11 @@
+city,timestamp,features,target_variables
+Mumbai,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Delhi,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+London,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+New York,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Tokyo,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Dubai,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Singapore,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Paris,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Berlin,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
+Sydney,2024-12-10 18:18:22.932319,"temperature, humidity, pressure, wind_speed, clouds, hour, day, month, day_of_week","temperature, humidity, pressure, wind_speed"
