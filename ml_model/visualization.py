@@ -119,59 +119,42 @@ class WeatherVisualizer:
                 '<b>Pressure Trend</b>',
                 '<b>Wind Speed Forecast</b>'
             ),
-            vertical_spacing=0.35,
-            horizontal_spacing=0.25,
+            vertical_spacing=0.4,
+            horizontal_spacing=0.3,
             row_heights=[0.5, 0.5]
         )
         
         times = [p['timestamp'] for p in predictions]
         
-        fig.add_trace(
-            go.Scatter(
-                x=times,
-                y=[p['temperature'] for p in predictions],
-                name='Temperature',
-                line=dict(color=self.colors['temperature'], width=2.5)
-            ),
-            row=1, col=1
-        )
+        traces = [
+            ('temperature', 1, 1),
+            ('humidity', 1, 2),
+            ('pressure', 2, 1),
+            ('wind_speed', 2, 2)
+        ]
         
-        fig.add_trace(
-            go.Scatter(
-                x=times,
-                y=[p['humidity'] for p in predictions],
-                name='Humidity',
-                line=dict(color=self.colors['humidity'], width=2.5)
-            ),
-            row=1, col=2
-        )
-        
-        fig.add_trace(
-            go.Scatter(
-                x=times,
-                y=[p['pressure'] for p in predictions],
-                name='Pressure',
-                line=dict(color=self.colors['pressure'], width=2.5)
-            ),
-            row=2, col=1
-        )
-        
-        fig.add_trace(
-            go.Scatter(
-                x=times,
-                y=[p['wind_speed'] for p in predictions],
-                name='Wind Speed',
-                line=dict(color=self.colors['wind'], width=2.5)
-            ),
-            row=2, col=2
-        )
+        for param, row, col in traces:
+            fig.add_trace(
+                go.Scatter(
+                    x=times,
+                    y=[p[param] for p in predictions],
+                    name=param.title(),
+                    line=dict(
+                        color=self.colors[param.replace('_', '')],
+                        width=2
+                    ),
+                    mode='lines+markers',
+                    marker=dict(size=6)
+                ),
+                row=row, col=col
+            )
 
         fig.update_layout(
-            height=1000,
+            height=1200,
             width=1200,
             showlegend=False,
             template='plotly_white',
-            margin=dict(t=120, b=80, l=80, r=80),
+            margin=dict(t=150, b=100, l=100, r=100),
             grid=dict(rows=2, columns=2, pattern='independent'),
             plot_bgcolor='rgba(0,0,0,0)',
             paper_bgcolor='rgba(0,0,0,0)',
@@ -182,34 +165,50 @@ class WeatherVisualizer:
         for i in range(1, 3):
             for j in range(1, 3):
                 fig.update_xaxes(
-                    row=i, 
+                    row=i,
                     col=j,
                     automargin=True,
                     tickangle=45,
-                    title_font=dict(size=14),
-                    tickfont=dict(size=12),
+                    title_font=dict(size=12),
+                    tickfont=dict(size=10),
                     gridcolor='lightgrey',
                     title=dict(
                         text="Time",
-                        standoff=20
-                    )
+                        standoff=30
+                    ),
+                    rangemode="tozero",
+                    constrain="domain"
                 )
+                
                 fig.update_yaxes(
                     row=i,
                     col=j,
                     automargin=True,
-                    title_font=dict(size=14),
-                    tickfont=dict(size=12),
+                    title_font=dict(size=12),
+                    tickfont=dict(size=10),
                     gridcolor='lightgrey',
-                    title=dict(
-                        standoff=20
-                    )
+                    title=dict(standoff=20),
+                    rangemode="tozero",
+                    constrain="domain",
+                    scaleanchor="x"
                 )
 
-        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
-        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2)
-        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1)
-        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2)
+        labels = {
+            (1, 1): "Temperature (°C)",
+            (1, 2): "Humidity (%)",
+            (2, 1): "Pressure (hPa)",
+            (2, 2): "Wind Speed (m/s)"
+        }
+        
+        for (row, col), title in labels.items():
+            fig.update_yaxes(
+                title_text=title,
+                row=row,
+                col=col,
+                title_standoff=10
+            )
+
+        fig.update_annotations(y=0.95)
 
         return json.loads(fig.to_json())
 

@@ -69,11 +69,12 @@
         }
 
         .visualization-section {
-            margin-top: 60px;  /* Increased top margin */
-            padding: 30px;
+            margin-top: 60px;
+            margin-bottom: 60px;
+            padding: 40px;
             background-color: var(--card-bg);
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
         .visualization-title {
@@ -84,7 +85,18 @@
         }
 
         .plot-container {
-            margin-top: 40px;
+            margin: 0 auto;
+            max-width: 1400px;
+        }
+
+        .card {
+            border: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        #combinedPlot {
+            border-radius: 10px;
+            overflow: hidden;
         }
     </style>
 </head>
@@ -156,47 +168,9 @@
                 <h2 class="visualization-title">Weather Visualizations</h2>
                 
                 <div class="plot-container">
-                    <!-- Combined Plot -->
                     <div class="card mb-5">
-                        <div class="card-body">
-                            <h5 class="card-title text-center mb-4">Combined Weather Forecast</h5>
-                            <div id="combinedPlot" style="height: 1000px; width: 100%;"></div>
-                        </div>
-                    </div>
-                    
-                    <!-- Individual Plots -->
-                    <div class="row">
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center mb-3">Temperature Trend</h5>
-                                    <div id="tempPlot" style="height: 400px; width: 100%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center mb-3">Humidity Trend</h5>
-                                    <div id="humidityPlot" style="height: 400px; width: 100%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center mb-3">Pressure Trend</h5>
-                                    <div id="pressurePlot" style="height: 400px; width: 100%;"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 mb-4">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title text-center mb-3">Wind Speed Trend</h5>
-                                    <div id="windPlot" style="height: 400px; width: 100%;"></div>
-                                </div>
-                            </div>
+                        <div class="card-body p-4">
+                            <div id="combinedPlot" style="height: 1200px; width: 100%; margin: 20px auto;"></div>
                         </div>
                     </div>
                 </div>
