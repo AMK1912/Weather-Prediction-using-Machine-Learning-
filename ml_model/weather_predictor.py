@@ -11,6 +11,7 @@ from dotenv import load_dotenv
 from .data_collector import Weather_Data_Collector
 import os
 from time import sleep
+import traceback
 
 
 
@@ -38,10 +39,10 @@ class Weather_Prediction():
         self.data_collector = Weather_Data_Collector()
         
         # Use absolute path for models
-        current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.model_path = os.path.join(current_dir, '..', 'models')
-        print(f"Models will be saved to: {self.model_path}")
+        self.model_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'models'))
+        print(f"Models directory: {self.model_path}")
         
+        # Create models directory if it doesn't exist
         if not os.path.exists(self.model_path):
             os.makedirs(self.model_path)
             print(f"Created models directory at {self.model_path}")
@@ -377,29 +378,48 @@ class Weather_Prediction():
             return None
 
     def load_models(self):
-        """
-        Load trained models and scaler
-        """
+        """Load models with better error handling"""
         try:
-            # Load scaler first
-            scaler_path = os.path.join(self.model_path, 'scaler.joblib')
-            if not os.path.exists(scaler_path):
-                raise FileNotFoundError(f"Scaler not found at {scaler_path}")
-            self.scaler = joblib.load(scaler_path)
+            print(f"\nLoading models from: {self.model_path}")
             
-            # Load each model
+            # Check if models exist
+            required_files = [
+                'temperature_model.joblib',
+                'humidity_model.joblib',
+                'pressure_model.joblib',
+                'wind_speed_model.joblib',
+                'scaler.joblib'
+            ]
+            
+            missing_files = []
+            for file in required_files:
+                file_path = os.path.join(self.model_path, file)
+                if not os.path.exists(file_path):
+                    missing_files.append(file)
+                else:
+                    print(f"Found: {file}")
+            
+            if missing_files:
+                print(f"\nMissing model files: {missing_files}")
+                print("Training new models...")
+                return self.train(['Mumbai', 'London', 'New York'])  # Train with default cities
+            
+            # Load models
             for target in self.target_variables:
                 model_path = os.path.join(self.model_path, f'{target}_model.joblib')
-                if not os.path.exists(model_path):
-                    raise FileNotFoundError(f"Model not found at {model_path}")
                 self.models[target] = joblib.load(model_path)
+                print(f"Loaded model: {target}")
             
-            print("Models and scaler loaded successfully")
-            print("Available features:", self.all_features)
+            # Load scaler
+            scaler_path = os.path.join(self.model_path, 'scaler.joblib')
+            self.scaler = joblib.load(scaler_path)
+            print("Loaded scaler")
+            
             return True
             
         except Exception as e:
-            print(f"Error loading models: {e}")
+            print(f"Error loading models: {str(e)}")
+            print("Full error details:", traceback.format_exc())
             return False
 
     def evaluate_predictions(self, city, hours=24):
