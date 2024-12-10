@@ -111,29 +111,27 @@ class WeatherVisualizer:
         return json.loads(fig.to_json())
 
     def create_combined_plot(self, predictions):
-        # Create figure with secondary y-axis
         fig = make_subplots(
             rows=2, cols=2,
             subplot_titles=(
-                'Temperature Forecast',
-                'Humidity Forecast',
-                'Pressure Trend',
-                'Wind Speed Forecast'
+                '<b>Temperature Forecast</b>',
+                '<b>Humidity Forecast</b>',
+                '<b>Pressure Trend</b>',
+                '<b>Wind Speed Forecast</b>'
             ),
-            vertical_spacing=0.3,    # Increased vertical spacing
-            horizontal_spacing=0.2,  # Increased horizontal spacing
-            row_heights=[0.5, 0.5]   # Equal height for rows
+            vertical_spacing=0.35,
+            horizontal_spacing=0.25,
+            row_heights=[0.5, 0.5]
         )
         
         times = [p['timestamp'] for p in predictions]
         
-        # Add traces for each subplot
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['temperature'] for p in predictions],
                 name='Temperature',
-                line=dict(color=self.colors['temperature'])
+                line=dict(color=self.colors['temperature'], width=2.5)
             ),
             row=1, col=1
         )
@@ -143,7 +141,7 @@ class WeatherVisualizer:
                 x=times,
                 y=[p['humidity'] for p in predictions],
                 name='Humidity',
-                line=dict(color=self.colors['humidity'])
+                line=dict(color=self.colors['humidity'], width=2.5)
             ),
             row=1, col=2
         )
@@ -153,7 +151,7 @@ class WeatherVisualizer:
                 x=times,
                 y=[p['pressure'] for p in predictions],
                 name='Pressure',
-                line=dict(color=self.colors['pressure'])
+                line=dict(color=self.colors['pressure'], width=2.5)
             ),
             row=2, col=1
         )
@@ -163,48 +161,55 @@ class WeatherVisualizer:
                 x=times,
                 y=[p['wind_speed'] for p in predictions],
                 name='Wind Speed',
-                line=dict(color=self.colors['wind'])
+                line=dict(color=self.colors['wind'], width=2.5)
             ),
             row=2, col=2
         )
 
-        # Update layout with more space and better positioning
         fig.update_layout(
-            height=900,              # Increased height
-            width=1200,             # Fixed width
+            height=1000,
+            width=1200,
             showlegend=False,
             template='plotly_white',
-            margin=dict(t=100, b=60, l=60, r=60),  # Increased margins
+            margin=dict(t=120, b=80, l=80, r=80),
             grid=dict(rows=2, columns=2, pattern='independent'),
             plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)'
+            paper_bgcolor='rgba(0,0,0,0)',
+            title_font=dict(size=20),
+            font=dict(size=14)
         )
 
-        # Update axes labels and properties
-        fig.update_xaxes(title_text="Time", row=1, col=1, gridcolor='lightgrey')
-        fig.update_xaxes(title_text="Time", row=1, col=2, gridcolor='lightgrey')
-        fig.update_xaxes(title_text="Time", row=2, col=1, gridcolor='lightgrey')
-        fig.update_xaxes(title_text="Time", row=2, col=2, gridcolor='lightgrey')
-
-        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1, gridcolor='lightgrey')
-        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2, gridcolor='lightgrey')
-        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1, gridcolor='lightgrey')
-        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2, gridcolor='lightgrey')
-
-        # Ensure subplots don't overlap
         for i in range(1, 3):
             for j in range(1, 3):
                 fig.update_xaxes(
                     row=i, 
                     col=j,
                     automargin=True,
-                    tickangle=45
+                    tickangle=45,
+                    title_font=dict(size=14),
+                    tickfont=dict(size=12),
+                    gridcolor='lightgrey',
+                    title=dict(
+                        text="Time",
+                        standoff=20
+                    )
                 )
                 fig.update_yaxes(
                     row=i,
                     col=j,
-                    automargin=True
+                    automargin=True,
+                    title_font=dict(size=14),
+                    tickfont=dict(size=12),
+                    gridcolor='lightgrey',
+                    title=dict(
+                        standoff=20
+                    )
                 )
+
+        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
+        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2)
+        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1)
+        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2)
 
         return json.loads(fig.to_json())
 
