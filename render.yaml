@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: weather-prediction
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --workers=4 --threads=4 --timeout 120 --bind 0.0.0.0:$PORT 'app:create_app()'
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.1
+  
