@@ -4,7 +4,6 @@ __pycache__/
 *$py.class
 *.so
 .Python
-env/
 build/
 develop-eggs/
 dist/
@@ -22,47 +21,52 @@ wheels/
 *.egg
 
 # Virtual Environment
+.env
+.venv
+env/
 venv/
 ENV/
-.env
+env.bak/
+venv.bak/
 
-# IDE specific files
+# IDE
 .idea/
 .vscode/
 *.swp
 *.swo
+*~
+
+# OS
 .DS_Store
-
-# Project specific
-models/*
-!models/.gitkeep
-data/*
-!data/.gitkeep
-predictions/*
-!predictions/.gitkeep
-logs/*
-!logs/.gitkeep
-
-# API keys and sensitive data
-config.ini
-.env
-secrets.json
-
-# Jupyter Notebook
-.ipynb_checkpoints
-*.ipynb
-
-# Database
-*.db
-*.sqlite3
+Thumbs.db
+.directory
 
 # Logs
 *.log
 logs/
-npm-debug.log*
+log/
 
-# Temporary files
-*.tmp
-*.temp
-.coverage
+# Database
+*.sqlite3
+*.db
+
+# Coverage reports
 htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Project specific
+.pytest_cache/
+.python-version
+
+# Allow model files
+!models/*.joblib
