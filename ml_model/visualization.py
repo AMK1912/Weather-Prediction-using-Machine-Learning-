@@ -111,7 +111,6 @@ class WeatherVisualizer:
         return json.loads(fig.to_json())
 
     def create_combined_plot(self, predictions):
-        """Create interactive combined visualization"""
         fig = make_subplots(
             rows=2, cols=2,
             subplot_titles=(
@@ -120,72 +119,91 @@ class WeatherVisualizer:
                 'Pressure Trend',
                 'Wind Speed Forecast'
             ),
-            vertical_spacing=0.15,
-            horizontal_spacing=0.1
+            vertical_spacing=0.25,
+            horizontal_spacing=0.15
         )
         
         times = [p['timestamp'] for p in predictions]
         
-        # Temperature subplot
+        # Temperature subplot (top-left)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['temperature'] for p in predictions],
                 name='Temperature',
-                line=dict(color=self.colors['temperature'], width=2)
+                line=dict(color=self.colors['temperature'], width=2),
+                showlegend=False
             ),
             row=1, col=1
         )
-        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
         
-        # Humidity subplot
+        # Humidity subplot (top-right)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['humidity'] for p in predictions],
                 name='Humidity',
-                line=dict(color=self.colors['humidity'], width=2)
+                line=dict(color=self.colors['humidity'], width=2),
+                showlegend=False
             ),
             row=1, col=2
         )
-        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2)
         
-        # Pressure subplot
+        # Pressure subplot (bottom-left)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['pressure'] for p in predictions],
                 name='Pressure',
-                line=dict(color=self.colors['pressure'], width=2)
+                line=dict(color=self.colors['pressure'], width=2),
+                showlegend=False
             ),
             row=2, col=1
         )
-        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1)
         
-        # Wind Speed subplot
+        # Wind Speed subplot (bottom-right)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['wind_speed'] for p in predictions],
                 name='Wind Speed',
-                line=dict(color=self.colors['wind'], width=2)
+                line=dict(color=self.colors['wind'], width=2),
+                showlegend=False
             ),
             row=2, col=2
         )
-        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2)
         
-        # Update layout
+        # Update layout and spacing
         fig.update_layout(
             height=800,
-            showlegend=True,
+            width=1000,
+            showlegend=False,
             template='plotly_white',
-            margin=dict(t=60, b=40)
+            margin=dict(t=80, b=40, l=60, r=40)
         )
         
-        # Update all xaxes
-        for i in range(1, 3):
-            for j in range(1, 3):
-                fig.update_xaxes(title_text="Time", row=i, col=j)
+        # Update axes for each subplot
+        fig.update_xaxes(title_text="Time", row=1, col=1)
+        fig.update_xaxes(title_text="Time", row=1, col=2)
+        fig.update_xaxes(title_text="Time", row=2, col=1)
+        fig.update_xaxes(title_text="Time", row=2, col=2)
+        
+        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
+        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2)
+        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1)
+        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2)
+        
+        # Ensure each subplot has its own independent axes
+        fig.update_layout(
+            xaxis=dict(domain=[0, 0.45]),
+            xaxis2=dict(domain=[0.55, 1]),
+            xaxis3=dict(domain=[0, 0.45]),
+            xaxis4=dict(domain=[0.55, 1]),
+            yaxis=dict(domain=[0.55, 1]),
+            yaxis2=dict(domain=[0.55, 1]),
+            yaxis3=dict(domain=[0, 0.45]),
+            yaxis4=dict(domain=[0, 0.45])
+        )
         
         return json.loads(fig.to_json())
 
