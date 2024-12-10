@@ -139,7 +139,7 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">Combined Weather Forecast</h5>
-                        <div id="combinedPlot" style="height: 800px;"></div>
+                        <div id="combinedPlot" style="height: 600px; width: 100%;"></div>
                     </div>
                 </div>
                 
@@ -148,7 +148,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Temperature Trend</h5>
-                                <div id="tempPlot" style="height: 400px;"></div>
+                                <div id="tempPlot" style="height: 400px; width: 100%;"></div>
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Humidity Trend</h5>
-                                <div id="humidityPlot" style="height: 400px;"></div>
+                                <div id="humidityPlot" style="height: 400px; width: 100%;"></div>
                             </div>
                         </div>
                     </div>
@@ -164,7 +164,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Pressure Trend</h5>
-                                <div id="pressurePlot" style="height: 400px;"></div>
+                                <div id="pressurePlot" style="height: 400px; width: 100%;"></div>
                             </div>
                         </div>
                     </div>
@@ -172,7 +172,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">Wind Speed Trend</h5>
-                                <div id="windPlot" style="height: 400px;"></div>
+                                <div id="windPlot" style="height: 400px; width: 100%;"></div>
                             </div>
                         </div>
                     </div>
@@ -277,6 +277,7 @@
                         Plotly.newPlot('combinedPlot', response.plots.combined.data, response.plots.combined.layout, plotConfig);
                         
                         $('#visualizations').show();
+
                     } else {
                         $('#errorAlert')
                             .html(`Error: ${response.error}`)
