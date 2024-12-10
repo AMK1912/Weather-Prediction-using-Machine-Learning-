@@ -113,89 +113,108 @@ class WeatherVisualizer:
 
     def create_combined_plot(self, predictions):
         try:
-            print("\nCreating combined plot...")
-            
             fig = make_subplots(
                 rows=2, cols=2,
                 subplot_titles=(
-                    '<b>Temperature Forecast (°C)</b>',
-                    '<b>Humidity Forecast (%)</b>',
-                    '<b>Pressure Trend (hPa)</b>',
-                    '<b>Wind Speed Forecast (m/s)</b>'
+                    'Temperature Forecast (°C)',
+                    'Humidity Forecast (%)',
+                    'Pressure Trend (hPa)',
+                    'Wind Speed Forecast (m/s)'
                 ),
-                vertical_spacing=0.3,
-                horizontal_spacing=0.15,
+                vertical_spacing=0.15,
+                horizontal_spacing=0.1
+            )
+
+            timestamps = [p['timestamp'] for p in predictions]
+
+            # Plot temperature
+            values = [p['temperature'] for p in predictions]
+            fig.add_trace(
+                go.Scatter(x=timestamps, y=values, name='Temperature', line=dict(color='red')),
+                row=1, col=1
+            )
+
+            # Plot humidity
+            values = [p['humidity'] for p in predictions]
+            fig.add_trace(
+                go.Scatter(x=timestamps, y=values, name='Humidity', line=dict(color='blue')),
+                row=1, col=2
+            )
+
+            # Plot pressure with enhanced formatting
+            values = [p['pressure'] for p in predictions]
+            mean_pressure = sum(values) / len(values)
+            y_min = mean_pressure - 2  # Reduced range to ±2 hPa
+            y_max = mean_pressure + 2
+            
+            fig.add_trace(
+                go.Scatter(
+                    x=timestamps, 
+                    y=values, 
+                    name='Pressure',
+                    line=dict(color='green', width=2),
+                    mode='lines+markers',  # Add markers to the line
+                    marker=dict(size=6)
+                ),
+                row=2, col=1
             )
             
-            times = [p['timestamp'] for p in predictions]
-            
-            # Add traces with improved styling
-            traces = [
-                ('temperature', 1, 1, '°C', 'Temperature'),
-                ('humidity', 1, 2, '%', 'Humidity'),
-                ('pressure', 2, 1, 'hPa', 'Pressure'),
-                ('wind_speed', 2, 2, 'm/s', 'Wind Speed')
-            ]
-            
-            for param, row, col, unit, title in traces:
-                values = [p[param] for p in predictions]
-                
-                fig.add_trace(
-                    go.Scatter(
-                        x=times,
-                        y=values,
-                        name=title,
-                        line=dict(
-                            color=self.colors[param],
-                            width=3
-                        ),
-                        mode='lines+markers',
-                        marker=dict(
-                            size=8,
-                            symbol='circle'
-                        ),
-                        hovertemplate=f'{title}: %{{y:.1f}}{unit}<br>Time: %{{x}}<extra></extra>'
-                    ),
-                    row=row, col=col
-                )
+            # Update pressure subplot
+            fig.update_yaxes(
+                range=[y_min, y_max],
+                tickformat='.1f',
+                dtick=0.5,  # Smaller tick interval for more detail
+                title_text='Pressure (hPa)',
+                row=2, col=1
+            )
 
-            # Update layout with theme-compatible settings
+            # Plot wind speed
+            values = [p['wind_speed'] for p in predictions]
+            fig.add_trace(
+                go.Scatter(x=timestamps, y=values, name='Wind Speed', line=dict(color='purple')),
+                row=2, col=2
+            )
+
+            # Update layout
             fig.update_layout(
                 height=800,
                 showlegend=False,
-                template='plotly',  # Use plotly template for better theme compatibility
+                title_text='Weather Forecast',
                 margin=dict(t=60, b=40, l=40, r=40),
-                font=dict(size=12),
-                # Theme will be set by JavaScript
-                paper_bgcolor='rgba(0,0,0,0)',  # Transparent background
-                plot_bgcolor='rgba(0,0,0,0)'    # Transparent plot area
             )
 
-            # Update axes with theme-compatible settings
+            # Update x-axes
             fig.update_xaxes(
+                tickangle=45,
+                tickformat='%H:%M',  # Show only hours and minutes
+                nticks=12,  # Reduce number of x-axis labels
+                tickmode='auto',
                 showgrid=True,
                 gridwidth=1,
-                tickangle=45,
-                # Theme-compatible grid
-                gridcolor='rgba(128, 128, 128, 0.2)'
+                gridcolor='LightGrey'
             )
 
+            # Update y-axes
             fig.update_yaxes(
                 showgrid=True,
                 gridwidth=1,
-                # Theme-compatible grid
-                gridcolor='rgba(128, 128, 128, 0.2)',
+                gridcolor='LightGrey',
                 zeroline=True,
                 zerolinewidth=1,
-                zerolinecolor='rgba(128, 128, 128, 0.2)'
+                zerolinecolor='LightGrey'
             )
 
-            print("Plot created successfully")
+            # Add hover template for pressure
+            fig.update_traces(
+                hovertemplate='<b>Time</b>: %{x}<br><b>Pressure</b>: %{y:.1f} hPa<extra></extra>',
+                row=2, col=1
+            )
+
             return json.loads(fig.to_json())
-            
+
         except Exception as e:
             print(f"Error creating combined plot: {str(e)}")
-            print("Full error details:", traceback.format_exc())
+            traceback.print_exc()
             return None
 
     def create_all_plots(self, predictions):

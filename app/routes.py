@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify, Response
-from ml_model.weather_predictor import Weather_Prediction
+from ml_model.weather_prediction import Weather_Prediction
 from ml_model.data_collector import Weather_Data_Collector
 from ml_model.visualizations import create_forecast_dashboard
 from ml_model.visualization import WeatherVisualizer
