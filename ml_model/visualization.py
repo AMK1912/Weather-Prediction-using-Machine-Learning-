@@ -111,6 +111,7 @@ class WeatherVisualizer:
         return json.loads(fig.to_json())
 
     def create_combined_plot(self, predictions):
+        # Create figure with secondary y-axis
         fig = make_subplots(
             rows=2, cols=2,
             subplot_titles=(
@@ -119,92 +120,92 @@ class WeatherVisualizer:
                 'Pressure Trend',
                 'Wind Speed Forecast'
             ),
-            vertical_spacing=0.25,
-            horizontal_spacing=0.15
+            vertical_spacing=0.3,    # Increased vertical spacing
+            horizontal_spacing=0.2,  # Increased horizontal spacing
+            row_heights=[0.5, 0.5]   # Equal height for rows
         )
         
         times = [p['timestamp'] for p in predictions]
         
-        # Temperature subplot (top-left)
+        # Add traces for each subplot
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['temperature'] for p in predictions],
                 name='Temperature',
-                line=dict(color=self.colors['temperature'], width=2),
-                showlegend=False
+                line=dict(color=self.colors['temperature'])
             ),
             row=1, col=1
         )
         
-        # Humidity subplot (top-right)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['humidity'] for p in predictions],
                 name='Humidity',
-                line=dict(color=self.colors['humidity'], width=2),
-                showlegend=False
+                line=dict(color=self.colors['humidity'])
             ),
             row=1, col=2
         )
         
-        # Pressure subplot (bottom-left)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['pressure'] for p in predictions],
                 name='Pressure',
-                line=dict(color=self.colors['pressure'], width=2),
-                showlegend=False
+                line=dict(color=self.colors['pressure'])
             ),
             row=2, col=1
         )
         
-        # Wind Speed subplot (bottom-right)
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['wind_speed'] for p in predictions],
                 name='Wind Speed',
-                line=dict(color=self.colors['wind'], width=2),
-                showlegend=False
+                line=dict(color=self.colors['wind'])
             ),
             row=2, col=2
         )
-        
-        # Update layout and spacing
+
+        # Update layout with more space and better positioning
         fig.update_layout(
-            height=800,
-            width=1000,
+            height=900,              # Increased height
+            width=1200,             # Fixed width
             showlegend=False,
             template='plotly_white',
-            margin=dict(t=80, b=40, l=60, r=40)
+            margin=dict(t=100, b=60, l=60, r=60),  # Increased margins
+            grid=dict(rows=2, columns=2, pattern='independent'),
+            plot_bgcolor='rgba(0,0,0,0)',
+            paper_bgcolor='rgba(0,0,0,0)'
         )
-        
-        # Update axes for each subplot
-        fig.update_xaxes(title_text="Time", row=1, col=1)
-        fig.update_xaxes(title_text="Time", row=1, col=2)
-        fig.update_xaxes(title_text="Time", row=2, col=1)
-        fig.update_xaxes(title_text="Time", row=2, col=2)
-        
-        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
-        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2)
-        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1)
-        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2)
-        
-        # Ensure each subplot has its own independent axes
-        fig.update_layout(
-            xaxis=dict(domain=[0, 0.45]),
-            xaxis2=dict(domain=[0.55, 1]),
-            xaxis3=dict(domain=[0, 0.45]),
-            xaxis4=dict(domain=[0.55, 1]),
-            yaxis=dict(domain=[0.55, 1]),
-            yaxis2=dict(domain=[0.55, 1]),
-            yaxis3=dict(domain=[0, 0.45]),
-            yaxis4=dict(domain=[0, 0.45])
-        )
-        
+
+        # Update axes labels and properties
+        fig.update_xaxes(title_text="Time", row=1, col=1, gridcolor='lightgrey')
+        fig.update_xaxes(title_text="Time", row=1, col=2, gridcolor='lightgrey')
+        fig.update_xaxes(title_text="Time", row=2, col=1, gridcolor='lightgrey')
+        fig.update_xaxes(title_text="Time", row=2, col=2, gridcolor='lightgrey')
+
+        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1, gridcolor='lightgrey')
+        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2, gridcolor='lightgrey')
+        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1, gridcolor='lightgrey')
+        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2, gridcolor='lightgrey')
+
+        # Ensure subplots don't overlap
+        for i in range(1, 3):
+            for j in range(1, 3):
+                fig.update_xaxes(
+                    row=i, 
+                    col=j,
+                    automargin=True,
+                    tickangle=45
+                )
+                fig.update_yaxes(
+                    row=i,
+                    col=j,
+                    automargin=True
+                )
+
         return json.loads(fig.to_json())
 
     def create_all_plots(self, predictions):
