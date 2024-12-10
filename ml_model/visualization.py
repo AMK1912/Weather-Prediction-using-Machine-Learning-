@@ -1,5 +1,4 @@
 import plotly.graph_objects as go
-import plotly.express as px
 from plotly.subplots import make_subplots
 import json
 from datetime import datetime
@@ -24,15 +23,14 @@ class WeatherVisualizer:
             y=temps,
             mode='lines+markers',
             name='Temperature',
-            line=dict(color=self.colors['temperature'], width=3),
-            hovertemplate='Time: %{x}<br>Temperature: %{y}°C<extra></extra>'
+            line=dict(color=self.colors['temperature'], width=3)
         ))
         
         fig.update_layout(
-            title='24-Hour Temperature Forecast',
+            title='Temperature Forecast',
             xaxis_title='Time',
             yaxis_title='Temperature (°C)',
-            hovermode='x unified',
+            height=400,
             template='plotly_white'
         )
         
@@ -49,16 +47,14 @@ class WeatherVisualizer:
             y=humidity,
             mode='lines+markers',
             name='Humidity',
-            fill='tozeroy',
-            line=dict(color=self.colors['humidity'], width=3),
-            hovertemplate='Time: %{x}<br>Humidity: %{y}%<extra></extra>'
+            line=dict(color=self.colors['humidity'], width=3)
         ))
         
         fig.update_layout(
-            title='24-Hour Humidity Forecast',
+            title='Humidity Forecast',
             xaxis_title='Time',
             yaxis_title='Humidity (%)',
-            hovermode='x unified',
+            height=400,
             template='plotly_white'
         )
         
@@ -123,65 +119,73 @@ class WeatherVisualizer:
                 'Humidity Forecast',
                 'Pressure Trend',
                 'Wind Speed Forecast'
-            )
+            ),
+            vertical_spacing=0.15,
+            horizontal_spacing=0.1
         )
         
         times = [p['timestamp'] for p in predictions]
         
-        # Temperature
+        # Temperature subplot
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['temperature'] for p in predictions],
                 name='Temperature',
-                line=dict(color=self.colors['temperature'], width=2),
-                hovertemplate='Temp: %{y}°C<extra></extra>'
+                line=dict(color=self.colors['temperature'], width=2)
             ),
             row=1, col=1
         )
+        fig.update_yaxes(title_text="Temperature (°C)", row=1, col=1)
         
-        # Humidity
+        # Humidity subplot
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['humidity'] for p in predictions],
                 name='Humidity',
-                line=dict(color=self.colors['humidity'], width=2),
-                hovertemplate='Humidity: %{y}%<extra></extra>'
+                line=dict(color=self.colors['humidity'], width=2)
             ),
             row=1, col=2
         )
+        fig.update_yaxes(title_text="Humidity (%)", row=1, col=2)
         
-        # Pressure
+        # Pressure subplot
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['pressure'] for p in predictions],
                 name='Pressure',
-                line=dict(color=self.colors['pressure'], width=2),
-                hovertemplate='Pressure: %{y} hPa<extra></extra>'
+                line=dict(color=self.colors['pressure'], width=2)
             ),
             row=2, col=1
         )
+        fig.update_yaxes(title_text="Pressure (hPa)", row=2, col=1)
         
-        # Wind Speed
+        # Wind Speed subplot
         fig.add_trace(
             go.Scatter(
                 x=times,
                 y=[p['wind_speed'] for p in predictions],
                 name='Wind Speed',
-                line=dict(color=self.colors['wind'], width=2),
-                hovertemplate='Wind: %{y} m/s<extra></extra>'
+                line=dict(color=self.colors['wind'], width=2)
             ),
             row=2, col=2
         )
+        fig.update_yaxes(title_text="Wind Speed (m/s)", row=2, col=2)
         
+        # Update layout
         fig.update_layout(
             height=800,
             showlegend=True,
             template='plotly_white',
-            hovermode='x unified'
+            margin=dict(t=60, b=40)
         )
+        
+        # Update all xaxes
+        for i in range(1, 3):
+            for j in range(1, 3):
+                fig.update_xaxes(title_text="Time", row=i, col=j)
         
         return json.loads(fig.to_json())
 
