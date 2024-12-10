@@ -66,10 +66,6 @@ The application is deployed on Render. To deploy:
 
 Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Thanks to the open-source community for providing the tools and libraries used in this project.
