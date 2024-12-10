@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Prediction</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <style>
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+        #errorAlert {
+            display: none;
+            margin: 20px 0;
+        }
+        #results {
+            display: none;
+            margin-top: 20px;
+        }
+        :root {
+            --bg-color: #ffffff;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+            --border-color: #dee2e6;
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2d2d2d;
+            --border-color: #404040;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-color: var(--border-color);
+        }
+
+        .table {
+            color: var(--text-color);
+        }
+
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .theme-switch .btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+        }
+
+        .dark-mode-btn {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .light-mode-btn {
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Weather Prediction</h1>
+        
+        <form id="weatherForm">
+            <div class="form-group">
+                <label for="city">Enter City:</label>
+                <input type="text" class="form-control" id="city" name="city" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Get Prediction</button>
+        </form>
+
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <span class="ml-2">Getting predictions...</span>
+        </div>
+
+        <div id="errorAlert" class="alert alert-danger"></div>
+
+        <div id="results">
+            <h2 class="mt-4">Current Weather</h2>
+            <div class="card mb-4">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <h5>Temperature</h5>
+                            <p id="currentTemp">--</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Humidity</h5>
+                            <p id="currentHumidity">--</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Pressure</h5>
+                            <p id="currentPressure">--</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Wind Speed</h5>
+                            <p id="currentWind">--</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Predictions</h2>
+            <div class="table-responsive">
+                <table id="predictionTable" class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Temperature</th>
+                            <th>Humidity</th>
+                            <th>Pressure</th>
+                            <th>Wind Speed</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Predictions will be inserted here -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="visualizations" class="mt-4" style="display: none;">
+                <h2>Weather Visualizations</h2>
+                
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Combined Weather Forecast</h5>
+                        <div id="combinedPlot" style="height: 800px;"></div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Temperature Trend</h5>
+                                <div id="tempPlot" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Humidity Trend</h5>
+                                <div id="humidityPlot" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Pressure Trend</h5>
+                                <div id="pressurePlot" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Wind Speed Trend</h5>
+                                <div id="windPlot" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="theme-switch">
+        <button class="btn light-mode-btn" onclick="setTheme('light')" id="lightBtn">☀️ Light</button>
+        <button class="btn dark-mode-btn" onclick="setTheme('dark')" id="darkBtn">🌙 Dark</button>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#weatherForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading, hide previous results
+            $('#loadingIndicator').show();
+            $('#errorAlert').hide();
+            $('#results').hide();
+            
+            const city = $('#city').val();
+            
+            $.ajax({
+                url: '/predict',
+                method: 'POST',
+                data: { city: city },
+                dataType: 'json',
+                success: function(response) {
+                    console.log('Response received:', response);  // Debug log
+                    
+                    $('#loadingIndicator').hide();
+                    
+                    if (response.success) {
+                        // Update current weather
+                        $('#currentTemp').text(response.current_weather.temperature + '°C');
+                        $('#currentHumidity').text(response.current_weather.humidity + '%');
+                        $('#currentPressure').text(response.current_weather.pressure + ' hPa');
+                        $('#currentWind').text(response.current_weather.wind_speed + ' m/s');
+                        
+                        // Update predictions table
+                        let predictionHtml = '';
+                        response.ml_predictions.forEach(function(pred) {
+                            predictionHtml += `
+                                <tr>
+                                    <td>${pred.timestamp}</td>
+                                    <td>${pred.temperature}°C</td>
+                                    <td>${pred.humidity}%</td>
+                                    <td>${pred.pressure} hPa</td>
+                                    <td>${pred.wind_speed} m/s</td>
+                                </tr>
+                            `;
+                        });
+                        
+                        $('#predictionTable tbody').html(predictionHtml);
+                        $('#results').show();
+                        
+                        console.log('Display updated');  // Debug log
+                        
+                        // Update visualizations
+                        const currentTheme = localStorage.getItem('theme') || 'light';
+                        const plotConfig = {
+                            responsive: true,
+                            displayModeBar: true,
+                            displaylogo: false
+                        };
+                        
+                        const darkThemeLayout = {
+                            paper_bgcolor: '#2d2d2d',
+                            plot_bgcolor: '#2d2d2d',
+                            font: { color: '#ffffff' },
+                            xaxis: { gridcolor: '#404040' },
+                            yaxis: { gridcolor: '#404040' }
+                        };
+                        
+                        const lightThemeLayout = {
+                            paper_bgcolor: '#ffffff',
+                            plot_bgcolor: '#ffffff',
+                            font: { color: '#333333' },
+                            xaxis: { gridcolor: '#e6e6e6' },
+                            yaxis: { gridcolor: '#e6e6e6' }
+                        };
+                        
+                        const themeLayout = currentTheme === 'dark' ? darkThemeLayout : lightThemeLayout;
+                        
+                        // Update plot layouts with theme
+                        ['temperature', 'humidity', 'pressure', 'wind', 'combined'].forEach(plotType => {
+                            response.plots[plotType].layout = {
+                                ...response.plots[plotType].layout,
+                                ...themeLayout
+                            };
+                        });
+                        
+                        // Create plots with theme
+                        Plotly.newPlot('tempPlot', response.plots.temperature.data, response.plots.temperature.layout, plotConfig);
+                        Plotly.newPlot('humidityPlot', response.plots.humidity.data, response.plots.humidity.layout, plotConfig);
+                        Plotly.newPlot('pressurePlot', response.plots.pressure.data, response.plots.pressure.layout, plotConfig);
+                        Plotly.newPlot('windPlot', response.plots.wind.data, response.plots.wind.layout, plotConfig);
+                        Plotly.newPlot('combinedPlot', response.plots.combined.data, response.plots.combined.layout, plotConfig);
+                        
+                        $('#visualizations').show();
+                    } else {
+                        $('#errorAlert')
+                            .html(`Error: ${response.error}`)
+                            .show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Ajax error:', error);  // Debug log
+                    console.error('Response:', xhr.responseText);  // Debug log
+                    
+                    $('#loadingIndicator').hide();
+                    $('#errorAlert')
+                        .html(`Technical Error: ${error}. Please try again.`)
+                        .show();
+                }
+            });
+        });
+    });
+
+    // Theme switcher functionality
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        // Update Plotly charts if they exist
+        if (window.Plotly) {
+            const plots = ['tempPlot', 'humidityPlot', 'pressurePlot', 'windPlot', 'combinedPlot'];
+            plots.forEach(plotId => {
+                const plotElement = document.getElementById(plotId);
+                if (plotElement && plotElement.data) {
+                    updatePlotTheme(plotId, theme);
+                }
+            });
+        }
+    }
+
+    function updatePlotTheme(plotId, theme) {
+        const plotElement = document.getElementById(plotId);
+        if (!plotElement) return;
+
+        const layout = {
+            ...plotElement.layout,
+            paper_bgcolor: theme === 'dark' ? '#2d2d2d' : '#ffffff',
+            plot_bgcolor: theme === 'dark' ? '#2d2d2d' : '#ffffff',
+            font: {
+                color: theme === 'dark' ? '#ffffff' : '#333333'
+            },
+            xaxis: {
+                ...plotElement.layout.xaxis,
+                gridcolor: theme === 'dark' ? '#404040' : '#e6e6e6'
+            },
+            yaxis: {
+                ...plotElement.layout.yaxis,
+                gridcolor: theme === 'dark' ? '#404040' : '#e6e6e6'
+            }
+        };
+
+        Plotly.relayout(plotId, layout);
+    }
+
+    // Initialize theme
+    document.addEventListener('DOMContentLoaded', () => {
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme);
+    });
+    </script>
+</body>
+</html>

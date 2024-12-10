@@ -1,0 +1,638 @@
+Starting model training...
+
+Training with 10 cities...
+
+Processing Mumbai...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Mumbai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Mumbai:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Mumbai:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     int64         
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(5), int64(6), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Mumbai: 41 rows
+
+Processing Delhi...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Delhi&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Delhi:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Delhi:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     int64         
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(5), int64(6), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Delhi: 41 rows
+
+Processing London...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=London&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=London&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for London:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for London:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     float64       
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(6), int64(5), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for London: 41 rows
+
+Processing New York...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=New+York&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=New+York&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for New York:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for New York:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     float64       
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(6), int64(5), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for New York: 41 rows
+
+Processing Tokyo...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Tokyo&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Tokyo:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Tokyo:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     int64         
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(5), int64(6), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Tokyo: 41 rows
+
+Processing Dubai...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Dubai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Dubai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Dubai:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Dubai:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     int64         
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(5), int64(6), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Dubai: 41 rows
+
+Processing Singapore...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Singapore&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Singapore&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Singapore:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Singapore:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     float64       
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(6), int64(5), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Singapore: 41 rows
+
+Processing Paris...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Paris&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Paris:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      int64         
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(4), int64(4), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Paris:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     float64       
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(6), int64(5), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Paris: 41 rows
+
+Processing Berlin...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Berlin:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Berlin:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     float64       
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(6), int64(5), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Berlin: 41 rows
+
+Processing Sydney...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Sydney&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Sydney&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+
+Current weather data for Sydney:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 1 entries, 0 to 0
+Data columns (total 13 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   city         1 non-null      object        
+ 1   country      1 non-null      object        
+ 2   temperature  1 non-null      float64       
+ 3   feels_like   1 non-null      float64       
+ 4   temp_min     1 non-null      float64       
+ 5   temp_max     1 non-null      float64       
+ 6   humidity     1 non-null      int64         
+ 7   pressure     1 non-null      int64         
+ 8   wind_speed   1 non-null      float64       
+ 9   description  1 non-null      object        
+ 10  icon         1 non-null      object        
+ 11  timestamp    1 non-null      datetime64[ns]
+ 12  clouds       1 non-null      int64         
+dtypes: datetime64[ns](1), float64(5), int64(3), object(4)
+memory usage: 236.0+ bytes
+None
+
+Forecast data for Sydney:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 40 entries, 0 to 39
+Data columns (total 14 columns):
+ #   Column       Non-Null Count  Dtype         
+---  ------       --------------  -----         
+ 0   timestamp    40 non-null     datetime64[ns]
+ 1   temperature  40 non-null     float64       
+ 2   feels_like   40 non-null     float64       
+ 3   temp_min     40 non-null     float64       
+ 4   temp_max     40 non-null     float64       
+ 5   humidity     40 non-null     int64         
+ 6   pressure     40 non-null     int64         
+ 7   wind_speed   40 non-null     float64       
+ 8   description  40 non-null     object        
+ 9   icon         40 non-null     object        
+ 10  clouds       40 non-null     int64         
+ 11  pop          40 non-null     int64         
+ 12  rain_3h      40 non-null     float64       
+ 13  snow_3h      40 non-null     int64         
+dtypes: datetime64[ns](1), float64(6), int64(5), object(2)
+memory usage: 4.5+ KB
+None
+Combined data for Sydney: 41 rows
+
+Combining data from all cities...
+Combined data shape: (410, 16)
+
+Initial data shape: (410, 16)
+D:\`\Data Analysis\Machine Learning\Projects\Weather Prediction\ml_model\weather_predictor.py:67: FutureWarning: Series.fillna with 'method' is deprecated and will raise in a future version. Use obj.ffill() or obj.bfill() instead.
+  df[col] = df[col].fillna(method='ffill').fillna(method='bfill').fillna(0)
+
+Converting features to numeric...
+
+Adding lag features...
+
+NaN values after processing:
+city                400
+country             400
+temperature           0
+feels_like            0
+temp_min              0
+temp_max              0
+humidity              0
+pressure              0
+wind_speed            0
+description           0
+icon                  0
+timestamp             0
+clouds                0
+pop                  10
+rain_3h              10
+snow_3h              10
+hour                  0
+day                   0
+month                 0
+day_of_week           0
+temperature_lag1      0
+temperature_lag2      0
+humidity_lag1         0
+humidity_lag2         0
+pressure_lag1         0
+pressure_lag2         0
+wind_speed_lag1       0
+wind_speed_lag2       0
+dtype: int64
+
+Rows with any NaN: 410
+Total rows: 410
+
+Final columns: ['city', 'country', 'temperature', 'feels_like', 'temp_min', 'temp_max', 'humidity', 'pressure', 'wind_speed', 'description', 'icon', 'timestamp', 'clouds', 'pop', 'rain_3h', 'snow_3h', 'hour', 'day', 'month', 'day_of_week', 'temperature_lag1', 'temperature_lag2', 'humidity_lag1', 'humidity_lag2', 'pressure_lag1', 'pressure_lag2', 'wind_speed_lag1', 'wind_speed_lag2']
+Final data shape: (410, 28)
+
+Sample of prepared data:
+     city country  temperature  ...  pressure_lag2  wind_speed_lag1  wind_speed_lag2
+0  Mumbai      IN         28.0  ...         1010.0             2.57             2.57
+1     NaN     NaN         27.4  ...         1011.0             2.57             5.11
+2     NaN     NaN         26.6  ...         1010.0             5.11             2.57
+3     NaN     NaN         25.1  ...         1011.0             2.99             2.99
+4     NaN     NaN         24.9  ...         1010.0             2.99             3.62
+
+[5 rows x 28 columns]
+
+Training model for temperature...
+MSE: 0.0018
+R2 Score: 1.0000
+
+Training model for humidity...
+MSE: 0.0229
+R2 Score: 1.0000
+
+Training model for pressure...
+MSE: 0.0158
+R2 Score: 0.9998
+
+Training model for wind_speed...
+MSE: 0.0005
+R2 Score: 0.9999
+
+Models trained successfully!
+
+Testing predictions...
+
+Testing predictions for Mumbai...
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Status Code: 200
+Current temperature in Mumbai: 28.0░C
+
+Starting prediction process...
+Input data validated successfully
+Initial data created successfully
+Features prepared: ['temperature', 'humidity', 'pressure', 'wind_speed', 'clouds', 'hour', 'day', 'month', 'day_of_week', 'temperature_lag1', 'humidity_lag1', 'pressure_lag1', 'wind_speed_lag1', 'temperature_lag2', 'humidity_lag2', 'pressure_lag2', 'wind_speed_lag2']
+Successfully generated 24 predictions
+
+Sample predictions:
+Hour 1: 28.02░C
+Hour 2: 28.04░C
+Hour 3: 28.03░C
+Error in training script: 'charmap' codec can't encode character '\u2713' in position 0: character maps to <undefined>
