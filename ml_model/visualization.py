@@ -2,6 +2,7 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import json
 from datetime import datetime
+import traceback
 
 class WeatherVisualizer:
     def __init__(self):
@@ -9,7 +10,7 @@ class WeatherVisualizer:
             'temperature': '#FF6B6B',
             'humidity': '#4ECDC4',
             'pressure': '#45B7D1',
-            'wind': '#96CEB4'
+            'wind_speed': '#96CEB4'
         }
 
     def create_temperature_plot(self, predictions):
@@ -96,7 +97,7 @@ class WeatherVisualizer:
             y=wind,
             mode='lines+markers',
             name='Wind Speed',
-            line=dict(color=self.colors['wind'], width=3),
+            line=dict(color=self.colors['wind_speed'], width=3),
             hovertemplate='Time: %{x}<br>Wind Speed: %{y} m/s<extra></extra>'
         ))
         
@@ -111,106 +112,91 @@ class WeatherVisualizer:
         return json.loads(fig.to_json())
 
     def create_combined_plot(self, predictions):
-        fig = make_subplots(
-            rows=2, cols=2,
-            subplot_titles=(
-                '<b>Temperature Forecast</b>',
-                '<b>Humidity Forecast</b>',
-                '<b>Pressure Trend</b>',
-                '<b>Wind Speed Forecast</b>'
-            ),
-            vertical_spacing=0.4,
-            horizontal_spacing=0.3,
-            row_heights=[0.5, 0.5]
-        )
-        
-        times = [p['timestamp'] for p in predictions]
-        
-        traces = [
-            ('temperature', 1, 1),
-            ('humidity', 1, 2),
-            ('pressure', 2, 1),
-            ('wind_speed', 2, 2)
-        ]
-        
-        for param, row, col in traces:
-            fig.add_trace(
-                go.Scatter(
-                    x=times,
-                    y=[p[param] for p in predictions],
-                    name=param.title(),
-                    line=dict(
-                        color=self.colors[param.replace('_', '')],
-                        width=2
-                    ),
-                    mode='lines+markers',
-                    marker=dict(size=6)
+        try:
+            print("\nCreating combined plot...")
+            
+            fig = make_subplots(
+                rows=2, cols=2,
+                subplot_titles=(
+                    '<b>Temperature Forecast (°C)</b>',
+                    '<b>Humidity Forecast (%)</b>',
+                    '<b>Pressure Trend (hPa)</b>',
+                    '<b>Wind Speed Forecast (m/s)</b>'
                 ),
-                row=row, col=col
+                vertical_spacing=0.3,
+                horizontal_spacing=0.15,
             )
-
-        fig.update_layout(
-            height=1200,
-            width=1200,
-            showlegend=False,
-            template='plotly_white',
-            margin=dict(t=150, b=100, l=100, r=100),
-            grid=dict(rows=2, columns=2, pattern='independent'),
-            plot_bgcolor='rgba(0,0,0,0)',
-            paper_bgcolor='rgba(0,0,0,0)',
-            title_font=dict(size=20),
-            font=dict(size=14)
-        )
-
-        for i in range(1, 3):
-            for j in range(1, 3):
-                fig.update_xaxes(
-                    row=i,
-                    col=j,
-                    automargin=True,
-                    tickangle=45,
-                    title_font=dict(size=12),
-                    tickfont=dict(size=10),
-                    gridcolor='lightgrey',
-                    title=dict(
-                        text="Time",
-                        standoff=30
-                    ),
-                    rangemode="tozero",
-                    constrain="domain"
-                )
+            
+            times = [p['timestamp'] for p in predictions]
+            
+            # Add traces with improved styling
+            traces = [
+                ('temperature', 1, 1, '°C', 'Temperature'),
+                ('humidity', 1, 2, '%', 'Humidity'),
+                ('pressure', 2, 1, 'hPa', 'Pressure'),
+                ('wind_speed', 2, 2, 'm/s', 'Wind Speed')
+            ]
+            
+            for param, row, col, unit, title in traces:
+                values = [p[param] for p in predictions]
                 
-                fig.update_yaxes(
-                    row=i,
-                    col=j,
-                    automargin=True,
-                    title_font=dict(size=12),
-                    tickfont=dict(size=10),
-                    gridcolor='lightgrey',
-                    title=dict(standoff=20),
-                    rangemode="tozero",
-                    constrain="domain",
-                    scaleanchor="x"
+                fig.add_trace(
+                    go.Scatter(
+                        x=times,
+                        y=values,
+                        name=title,
+                        line=dict(
+                            color=self.colors[param],
+                            width=3
+                        ),
+                        mode='lines+markers',
+                        marker=dict(
+                            size=8,
+                            symbol='circle'
+                        ),
+                        hovertemplate=f'{title}: %{{y:.1f}}{unit}<br>Time: %{{x}}<extra></extra>'
+                    ),
+                    row=row, col=col
                 )
 
-        labels = {
-            (1, 1): "Temperature (°C)",
-            (1, 2): "Humidity (%)",
-            (2, 1): "Pressure (hPa)",
-            (2, 2): "Wind Speed (m/s)"
-        }
-        
-        for (row, col), title in labels.items():
-            fig.update_yaxes(
-                title_text=title,
-                row=row,
-                col=col,
-                title_standoff=10
+            # Update layout with theme-compatible settings
+            fig.update_layout(
+                height=800,
+                showlegend=False,
+                template='plotly',  # Use plotly template for better theme compatibility
+                margin=dict(t=60, b=40, l=40, r=40),
+                font=dict(size=12),
+                # Theme will be set by JavaScript
+                paper_bgcolor='rgba(0,0,0,0)',  # Transparent background
+                plot_bgcolor='rgba(0,0,0,0)'    # Transparent plot area
             )
 
-        fig.update_annotations(y=0.95)
+            # Update axes with theme-compatible settings
+            fig.update_xaxes(
+                showgrid=True,
+                gridwidth=1,
+                tickangle=45,
+                # Theme-compatible grid
+                gridcolor='rgba(128, 128, 128, 0.2)'
+            )
 
-        return json.loads(fig.to_json())
+            fig.update_yaxes(
+                showgrid=True,
+                gridwidth=1,
+                # Theme-compatible grid
+                gridcolor='rgba(128, 128, 128, 0.2)',
+                zeroline=True,
+                zerolinewidth=1,
+                zerolinecolor='rgba(128, 128, 128, 0.2)'
+            )
+
+            print("Plot created successfully")
+            return json.loads(fig.to_json())
+            
+        except Exception as e:
+            print(f"Error creating combined plot: {str(e)}")
+            print("Full error details:", traceback.format_exc())
+            return None
 
     def create_all_plots(self, predictions):
         """Create all interactive visualizations"""

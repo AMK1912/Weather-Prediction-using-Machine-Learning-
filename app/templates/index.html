@@ -3,6 +3,7 @@
 <head>
     <title>Weather Prediction</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <style>
         .loading {
@@ -98,6 +99,411 @@
             border-radius: 10px;
             overflow: hidden;
         }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-title {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #currentWeather {
+            background-color: #f8f9fa;
+            margin-bottom: 30px;
+        }
+
+        #currentWeather .row {
+            margin: 0 -15px;
+        }
+
+        #currentWeather p {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        #currentWeather strong {
+            color: #555;
+        }
+
+        .current-weather-main {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .temp-main {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .weather-description {
+            font-size: 20px;
+            color: #666;
+            margin: 10px 0;
+        }
+
+        .feels-like {
+            color: #888;
+            font-size: 16px;
+        }
+
+        .weather-details {
+            padding: 20px;
+        }
+
+        .detail-item {
+            margin: 15px 0;
+            font-size: 16px;
+        }
+
+        .detail-item i {
+            width: 25px;
+            color: #666;
+            margin-right: 10px;
+        }
+
+        .weather-card {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: white;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .weather-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .weather-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        .weather-label {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #ecf0f1;
+        }
+
+        .weather-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .weather-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .weather-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .current-weather-container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .weather-heading {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .weather-flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .weather-flex-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .weather-icon {
+            color: #007bff;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .weather-type {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .weather-data {
+            color: #007bff;
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .weather-flex-container {
+                flex-direction: column;
+            }
+            
+            .weather-flex-item {
+                min-width: 100%;
+            }
+        }
+
+        /* Theme-aware styles using CSS variables */
+        :root[data-bs-theme="light"] {
+            --weather-bg: #ffffff;
+            --weather-item-bg: #f8f9fa;
+            --weather-text: #333333;
+            --weather-subtext: #666666;
+            --weather-data: #007bff;
+            --weather-border: rgba(0, 0, 0, 0.1);
+        }
+
+        :root[data-bs-theme="dark"] {
+            --weather-bg: #212529;
+            --weather-item-bg: #343a40;
+            --weather-text: #ffffff;
+            --weather-subtext: #ced4da;
+            --weather-data: #5499ff;
+            --weather-border: rgba(255, 255, 255, 0.1);
+        }
+
+        .current-weather-container {
+            background-color: var(--weather-bg);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 4px var(--weather-border);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .weather-heading {
+            color: var(--weather-text);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .weather-flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .weather-flex-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 15px;
+            background-color: var(--weather-item-bg);
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        .weather-icon {
+            color: var(--weather-data);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .weather-type {
+            color: var(--weather-subtext);
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .weather-data {
+            color: var(--weather-data);
+            font-size: 1.5rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .weather-flex-container {
+                flex-direction: column;
+            }
+            
+            .weather-flex-item {
+                min-width: 100%;
+            }
+        }
+
+        /* Theme styles */
+        .current-weather-container {
+            background-color: #ffffff;
+            color: #333333;
+            transition: all 0.3s ease;
+        }
+
+        .current-weather-container.theme-dark {
+            background-color: #212529;
+            color: #ffffff;
+        }
+
+        .weather-flex-item {
+            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .weather-flex-item.theme-dark {
+            background-color: #343a40;
+        }
+
+        .theme-dark .weather-heading {
+            color: #ffffff;
+        }
+
+        .theme-dark .weather-type {
+            color: #ced4da;
+        }
+
+        .theme-dark .weather-data {
+            color: #5499ff;
+        }
+
+        .theme-dark .weather-icon {
+            color: #5499ff;
+        }
+
+        /* Update visualization container theme */
+        #visualizations {
+            transition: all 0.3s ease;
+        }
+
+        [data-bs-theme="dark"] #visualizations {
+            background-color: #212529;
+        }
+
+        .current-weather-container {
+            transition: all 0.3s ease;
+        }
+
+        [data-bs-theme='light'] .current-weather-container {
+            background-color: var(--bs-body-bg);
+        }
+
+        [data-bs-theme='dark'] .current-weather-container {
+            background-color: var(--bs-dark-bg-subtle);
+        }
+
+        .weather-flex-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .weather-flex-item {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        [data-bs-theme='light'] .weather-flex-item {
+            background-color: var(--bs-light);
+            color: var(--bs-body-color);
+        }
+
+        [data-bs-theme='dark'] .weather-flex-item {
+            background-color: var(--bs-dark);
+            color: var(--bs-light);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        [data-bs-theme='light'] .section-title {
+            color: var(--bs-body-color);
+        }
+
+        [data-bs-theme='dark'] .section-title {
+            color: var(--bs-light);
+        }
+
+        .weather-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #0d6efd;
+        }
+
+        .weather-type {
+            font-size: 1rem;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+
+        [data-bs-theme='light'] .weather-type {
+            color: var(--bs-secondary);
+        }
+
+        [data-bs-theme='dark'] .weather-type {
+            color: var(--bs-secondary-text);
+        }
+
+        .weather-data {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #0d6efd;
+        }
+
+        @media (max-width: 768px) {
+            .weather-flex-container {
+                flex-direction: column;
+            }
+            
+            .weather-flex-item {
+                min-width: 100%;
+            }
+        }
+
+        /* Remove any custom theme-related styles to let Bootstrap handle theming */
+        .card {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .card-subtitle {
+            transition: color 0.3s ease;
+        }
+
+        .text-primary {
+            transition: color 0.3s ease;
+        }
     </style>
 </head>
 <body>
@@ -121,57 +527,85 @@
 
         <div id="errorAlert" class="alert alert-danger"></div>
 
-        <div id="results">
-            <h2 class="mt-4">Current Weather</h2>
-            <div class="card mb-4">
+        <div class="container mt-4">
+            <div id="currentWeather" class="card">
                 <div class="card-body">
-                    <div class="row">
+                    <h3 class="card-title text-center mb-4">Current Weather</h3>
+                    <div class="row g-4">
                         <div class="col-md-3">
-                            <h5>Temperature</h5>
-                            <p id="currentTemp">--</p>
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-thermometer-half mb-3 text-primary fs-3"></i>
+                                    <h5 class="card-subtitle mb-2">Temperature</h5>
+                                    <p class="card-text fs-4 text-primary fw-bold">
+                                        <span id="currentTemp">{{ current_weather.temperature }}</span> °C
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-3">
-                            <h5>Humidity</h5>
-                            <p id="currentHumidity">--</p>
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-tint mb-3 text-primary fs-3"></i>
+                                    <h5 class="card-subtitle mb-2">Humidity</h5>
+                                    <p class="card-text fs-4 text-primary fw-bold">
+                                        <span id="currentHumidity">{{ current_weather.humidity }}</span> %
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-3">
-                            <h5>Pressure</h5>
-                            <p id="currentPressure">--</p>
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-compress-alt mb-3 text-primary fs-3"></i>
+                                    <h5 class="card-subtitle mb-2">Pressure</h5>
+                                    <p class="card-text fs-4 text-primary fw-bold">
+                                        <span id="currentPressure">{{ current_weather.pressure }}</span> hPa
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-3">
-                            <h5>Wind Speed</h5>
-                            <p id="currentWind">--</p>
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-wind mb-3 text-primary fs-3"></i>
+                                    <h5 class="card-subtitle mb-2">Wind Speed</h5>
+                                    <p class="card-text fs-4 text-primary fw-bold">
+                                        <span id="currentWind">{{ current_weather.wind_speed }}</span> m/s
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <h2>Predictions</h2>
-            <div class="table-responsive">
-                <table id="predictionTable" class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Time</th>
-                            <th>Temperature</th>
-                            <th>Humidity</th>
-                            <th>Pressure</th>
-                            <th>Wind Speed</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Predictions will be inserted here -->
-                    </tbody>
-                </table>
-            </div>
+        <h2>Predictions</h2>
+        <div class="table-responsive">
+            <table id="predictionTable" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Temperature</th>
+                        <th>Humidity</th>
+                        <th>Pressure</th>
+                        <th>Wind Speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Predictions will be inserted here -->
+                </tbody>
+            </table>
+        </div>
 
-            <div id="visualizations" class="visualization-section" style="display: none;">
-                <h2 class="visualization-title">Weather Visualizations</h2>
-                
-                <div class="plot-container">
-                    <div class="card mb-5">
-                        <div class="card-body p-4">
-                            <div id="combinedPlot" style="height: 1200px; width: 100%; margin: 20px auto;"></div>
-                        </div>
+        <div id="visualizations" class="visualization-section" style="display: none;">
+            <h2 class="visualization-title">Weather Visualizations</h2>
+            
+            <div class="plot-container">
+                <div class="card mb-5">
+                    <div class="card-body p-4">
+                        <div id="combinedPlot" style="height: 1200px; width: 100%; margin: 20px auto;"></div>
                     </div>
                 </div>
             </div>
@@ -186,112 +620,96 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
     $(document).ready(function() {
-        $('#weatherForm').on('submit', function(e) {
+        $('#weatherForm').submit(function(e) {
             e.preventDefault();
-            
-            // Show loading, hide previous results
-            $('#loadingIndicator').show();
-            $('#errorAlert').hide();
-            $('#results').hide();
-            
             const city = $('#city').val();
             
             $.ajax({
                 url: '/predict',
-                method: 'POST',
-                data: { city: city },
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({ city: city }),
                 dataType: 'json',
                 success: function(response) {
-                    console.log('Response received:', response);  // Debug log
-                    
-                    $('#loadingIndicator').hide();
-                    
-                    if (response.success) {
-                        // Update current weather
-                        $('#currentTemp').text(response.current_weather.temperature + '°C');
-                        $('#currentHumidity').text(response.current_weather.humidity + '%');
-                        $('#currentPressure').text(response.current_weather.pressure + ' hPa');
-                        $('#currentWind').text(response.current_weather.wind_speed + ' m/s');
+                    if (response.success && response.current_weather) {
+                        // Update city name
+                        $('#cityName').text(city);
                         
-                        // Update predictions table
-                        let predictionHtml = '';
-                        response.ml_predictions.forEach(function(pred) {
-                            predictionHtml += `
-                                <tr>
-                                    <td>${pred.timestamp}</td>
-                                    <td>${pred.temperature}°C</td>
-                                    <td>${pred.humidity}%</td>
-                                    <td>${pred.pressure} hPa</td>
-                                    <td>${pred.wind_speed} m/s</td>
-                                </tr>
-                            `;
-                        });
+                        // Update current weather values
+                        const weather = response.current_weather;
+                        $('#currentTemp').text(weather.temperature.toFixed(1));
+                        $('#currentHumidity').text(weather.humidity.toFixed(1));
+                        $('#currentPressure').text(weather.pressure.toFixed(1));
+                        $('#currentWind').text(weather.wind_speed.toFixed(1));
                         
-                        $('#predictionTable tbody').html(predictionHtml);
-                        $('#results').show();
+                        // Show the weather card
+                        $('#currentWeather').fadeIn();
                         
-                        console.log('Display updated');  // Debug log
+                        // Update predictions and visualizations
+                        if (response.ml_predictions && response.ml_predictions.length > 0) {
+                            displayPredictions(response.ml_predictions);
+                            $('#results').fadeIn();
+                        }
                         
-                        // Update visualizations
-                        const currentTheme = localStorage.getItem('theme') || 'light';
-                        const plotConfig = {
-                            responsive: true,
-                            displayModeBar: true,
-                            displaylogo: false
-                        };
-                        
-                        const darkThemeLayout = {
-                            paper_bgcolor: '#2d2d2d',
-                            plot_bgcolor: '#2d2d2d',
-                            font: { color: '#ffffff' },
-                            xaxis: { gridcolor: '#404040' },
-                            yaxis: { gridcolor: '#404040' }
-                        };
-                        
-                        const lightThemeLayout = {
-                            paper_bgcolor: '#ffffff',
-                            plot_bgcolor: '#ffffff',
-                            font: { color: '#333333' },
-                            xaxis: { gridcolor: '#e6e6e6' },
-                            yaxis: { gridcolor: '#e6e6e6' }
-                        };
-                        
-                        const themeLayout = currentTheme === 'dark' ? darkThemeLayout : lightThemeLayout;
-                        
-                        // Update plot layouts with theme
-                        ['temperature', 'humidity', 'pressure', 'wind', 'combined'].forEach(plotType => {
-                            response.plots[plotType].layout = {
-                                ...response.plots[plotType].layout,
-                                ...themeLayout
-                            };
-                        });
-                        
-                        // Create plots with theme
-                        Plotly.newPlot('tempPlot', response.plots.temperature.data, response.plots.temperature.layout, plotConfig);
-                        Plotly.newPlot('humidityPlot', response.plots.humidity.data, response.plots.humidity.layout, plotConfig);
-                        Plotly.newPlot('pressurePlot', response.plots.pressure.data, response.plots.pressure.layout, plotConfig);
-                        Plotly.newPlot('windPlot', response.plots.wind.data, response.plots.wind.layout, plotConfig);
-                        Plotly.newPlot('combinedPlot', response.plots.combined.data, response.plots.combined.layout, plotConfig);
-                        
-                        $('#visualizations').show();
-
+                        if (response.plots && response.plots.combined) {
+                            Plotly.newPlot('combinedPlot', 
+                                response.plots.combined.data, 
+                                response.plots.combined.layout
+                            );
+                            $('#visualizations').fadeIn();
+                        }
                     } else {
                         $('#errorAlert')
-                            .html(`Error: ${response.error}`)
+                            .html(`Error: ${response.error || 'Could not fetch weather data'}`)
                             .show();
+                        $('#currentWeather').hide();
                     }
                 },
                 error: function(xhr, status, error) {
-                    console.error('Ajax error:', error);  // Debug log
-                    console.error('Response:', xhr.responseText);  // Debug log
-                    
+                    console.error('AJAX error:', error);
                     $('#loadingIndicator').hide();
                     $('#errorAlert')
                         .html(`Technical Error: ${error}. Please try again.`)
                         .show();
+                    $('#currentWeather').hide();
                 }
             });
         });
+
+        function displayPredictions(predictions) {
+            console.log('Displaying predictions:', predictions);
+            
+            const tbody = $('#predictionTable tbody');
+            tbody.empty();
+            
+            predictions.forEach(function(pred) {
+                const row = $('<tr>');
+                row.append($('<td>').text(pred.timestamp));
+                row.append($('<td>').text(pred.temperature.toFixed(2) + ' °C'));
+                row.append($('<td>').text(pred.humidity.toFixed(2) + ' %'));
+                row.append($('<td>').text(pred.pressure.toFixed(2) + ' hPa'));
+                row.append($('<td>').text(pred.wind_speed.toFixed(2) + ' m/s'));
+                tbody.append(row);
+            });
+            
+            console.log('Predictions table updated');
+        }
+
+        // Function to handle theme changes
+        function handleThemeChange(theme) {
+            document.documentElement.setAttribute('data-bs-theme', theme);
+        }
+
+        // Listen for theme toggle changes
+        $('#themeToggle').on('click', function() {
+            const currentTheme = document.documentElement.getAttribute('data-bs-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            handleThemeChange(newTheme);
+        });
+
+        // Initial theme setup
+        const initialTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+        handleThemeChange(initialTheme);
     });
 
     // Theme switcher functionality
@@ -339,6 +757,91 @@
     document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('theme') || 'light';
         setTheme(savedTheme);
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        // Function to update weather visualization theme
+        function updatePlotTheme(theme) {
+            if (window.combinedPlot) {
+                const layout = {
+                    ...window.combinedPlot.layout,
+                    paper_bgcolor: theme === 'dark' ? '#212529' : '#ffffff',
+                    plot_bgcolor: theme === 'dark' ? '#343a40' : '#f8f9fa',
+                    font: {
+                        color: theme === 'dark' ? '#ffffff' : '#333333'
+                    },
+                    grid: {
+                        color: theme === 'dark' ? '#495057' : '#e9ecef'
+                    }
+                };
+                Plotly.relayout('combinedPlot', layout);
+            }
+        }
+
+        // Function to handle theme changes
+        function updateTheme(theme) {
+            // Update weather container theme
+            if (theme === 'dark') {
+                $('.current-weather-container').addClass('theme-dark');
+                $('.weather-flex-item').addClass('theme-dark');
+            } else {
+                $('.current-weather-container').removeClass('theme-dark');
+                $('.weather-flex-item').removeClass('theme-dark');
+            }
+            
+            // Update plot theme
+            updatePlotTheme(theme);
+        }
+
+        // Listen for theme changes
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'data-bs-theme') {
+                    const theme = document.documentElement.getAttribute('data-bs-theme');
+                    updateTheme(theme);
+                }
+            });
+        });
+
+        // Start observing theme changes
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-bs-theme']
+        });
+
+        // Initial theme setup
+        const initialTheme = document.documentElement.getAttribute('data-bs-theme') || 'light';
+        updateTheme(initialTheme);
+    });
+    </script>
+
+    <script>
+    $(document).ready(function() {
+        // Function to update theme-specific elements
+        function updateTheme() {
+            const theme = document.documentElement.getAttribute('data-bs-theme');
+            document.querySelector('.current-weather-container').setAttribute('data-bs-theme', theme);
+        }
+
+        // Create an observer instance
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                if (mutation.attributeName === 'data-bs-theme') {
+                    updateTheme();
+                }
+            });
+        });
+
+        // Start observing the document element for theme changes
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-bs-theme']
+        });
+
+        // Initial theme setup
+        updateTheme();
     });
     </script>
 </body>

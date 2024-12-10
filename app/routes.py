@@ -21,8 +21,15 @@ class DateTimeEncoder(json.JSONEncoder):
         return super().default(obj)
 
 @main.route('/')
-def home():
-    return render_template('index.html')
+def index():
+    return render_template('index.html', 
+                         city="",
+                         current_weather={
+                             'temperature': None,
+                             'humidity': None,
+                             'pressure': None,
+                             'wind_speed': None
+                         })
 
 @main.route('/get_weather', methods=['POST'])
 def get_weather():
@@ -89,76 +96,56 @@ def get_weather():
         })
 
 @main.route('/predict', methods=['POST'])
-def predict_weather():
+def predict():
     try:
-        print("\n=== Starting Weather Prediction ===")
+        data = request.get_json()
+        city = data.get('city')
         
-        city = request.form['city']
-        print(f"Received request for city: {city}")
+        if not city:
+            return jsonify({'success': False, 'error': 'City name is required'})
         
-        weather_collector = Weather_Data_Collector()
-        weather_predictor = Weather_Prediction()
+        predictor = Weather_Prediction()
         
-        # Get current weather
-        print("Getting current weather...")
-        current_weather = weather_collector.get_current_weather(city)
-        print(f"Current weather: {current_weather}")
-        
-        if not current_weather:
-            return Response(
-                json.dumps({
-                    'success': False,
-                    'error': f"Could not find weather data for '{city}'"
-                }),
-                mimetype='application/json'
-            )
+        # Get current weather data
+        weather_data = predictor.get_weather_data(city)
+        if weather_data is None:
+            return jsonify({'success': False, 'error': 'Could not fetch weather data'})
+            
+        # Extract and format current weather data
+        try:
+            current_weather = {
+                'temperature': float(weather_data['main']['temp']),
+                'humidity': float(weather_data['main']['humidity']),
+                'pressure': float(weather_data['main']['pressure']),
+                'wind_speed': float(weather_data['wind']['speed'])
+            }
+        except KeyError as e:
+            print(f"Error extracting weather data: {e}")
+            return jsonify({'success': False, 'error': 'Invalid weather data format'})
         
         # Get predictions
-        print("Getting predictions...")
-        ml_predictions = weather_predictor.predict(current_weather, hours=24)
-        print(f"Generated {len(ml_predictions) if ml_predictions else 0} predictions")
-        
-        if not ml_predictions:
-            return Response(
-                json.dumps({
-                    'success': False,
-                    'error': "Could not generate weather predictions"
-                }),
-                mimetype='application/json'
-            )
+        predictions = predictor.predict(city)
+        if predictions is None:
+            return jsonify({'success': False, 'error': 'Could not generate predictions'})
         
         # Create visualizations
         visualizer = WeatherVisualizer()
-        plots = visualizer.create_all_plots(ml_predictions)
+        plots = {
+            'combined': visualizer.create_combined_plot(predictions)
+        }
         
-        # Create response
-        response_data = {
+        return jsonify({
             'success': True,
             'city': city,
             'current_weather': current_weather,
-            'ml_predictions': ml_predictions,
+            'ml_predictions': predictions,
             'plots': plots
-        }
-        
-        print("Sending response...")
-        print(json.dumps(response_data, indent=2, cls=DateTimeEncoder))
-        
-        return Response(
-            json.dumps(response_data, cls=DateTimeEncoder),
-            mimetype='application/json'
-        )
+        })
         
     except Exception as e:
         print(f"Error in predict route: {str(e)}")
-        import traceback
-        traceback.print_exc()
-        return Response(
-            json.dumps({
-                'success': False,
-                'error': str(e)
-            }),
-            mimetype='application/json'
-        )
+        print("Full error details:", traceback.format_exc())
+        return jsonify({'success': False, 'error': str(e)})
 
 @main.route('/train', methods=['POST'])
 def train_model():
