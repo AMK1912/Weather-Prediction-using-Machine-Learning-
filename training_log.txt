@@ -165,9 +165,9 @@ None
 Combined data for London: 41 rows
 
 Processing New York...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=New+York&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=New+York&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=New+York&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=New+York&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for New York:
@@ -219,9 +219,9 @@ None
 Combined data for New York: 41 rows
 
 Processing Tokyo...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Tokyo&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Tokyo&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Tokyo&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Tokyo:
@@ -273,9 +273,9 @@ None
 Combined data for Tokyo: 41 rows
 
 Processing Dubai...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Dubai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Dubai&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Dubai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Dubai&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Dubai:
@@ -327,9 +327,9 @@ None
 Combined data for Dubai: 41 rows
 
 Processing Singapore...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Singapore&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Singapore&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Singapore&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Singapore&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Singapore:
@@ -381,9 +381,9 @@ None
 Combined data for Singapore: 41 rows
 
 Processing Paris...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Paris&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Paris&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Paris&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Paris:
@@ -435,9 +435,9 @@ None
 Combined data for Paris: 41 rows
 
 Processing Berlin...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Berlin&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Berlin&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Berlin:
@@ -489,9 +489,9 @@ None
 Combined data for Berlin: 41 rows
 
 Processing Sydney...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Sydney&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Sydney&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Sydney&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Sydney&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Sydney:
@@ -621,7 +621,7 @@ Models trained successfully!
 Testing predictions...
 
 Testing predictions for Mumbai...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=apikey&units=metric
 Status Code: 200
 Current temperature in Mumbai: 28.0░C
 
