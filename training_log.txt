@@ -3,9 +3,9 @@ Starting model training...
 Training with 10 cities...
 
 Processing Mumbai...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Mumbai&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Mumbai&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Mumbai&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Mumbai:
@@ -57,9 +57,9 @@ None
 Combined data for Mumbai: 41 rows
 
 Processing Delhi...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=Delhi&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Delhi&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=Delhi&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for Delhi:
@@ -111,9 +111,9 @@ None
 Combined data for Delhi: 41 rows
 
 Processing London...
-Request URL: https://api.openweathermap.org/data/2.5/weather?q=London&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Request URL: https://api.openweathermap.org/data/2.5/weather?q=London&appid=apikey&units=metric
 Status Code: 200
-Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=London&appid=416c954750e1ac346c32acde3487ec8b&units=metric
+Forecast request URL: https://api.openweathermap.org/data/2.5/forecast?q=London&appid=apikey&units=metric
 Status Code: 200
 
 Current weather data for London:
