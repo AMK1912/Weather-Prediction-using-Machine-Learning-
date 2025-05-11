@@ -69,4 +69,3 @@ Contributions are welcome! Please fork the repository and submit a pull request 
 ## Acknowledgments
 
 - Thanks to the open-source community for providing the tools and libraries used in this project.
-- Special thanks to [Your Name] for guidance and support.
